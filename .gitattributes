@@ -1,0 +1,13 @@
+# Normalize line endings for cross-platform consistency
+* text=auto
+
+# Treat C# files as text and ensure CRLF on checkout
+*.cs text eol=crlf
+
+# Binary files should be kept as-is
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.exe binary
+*.dll binary

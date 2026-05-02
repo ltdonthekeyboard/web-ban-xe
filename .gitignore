@@ -1,0 +1,32 @@
+# Visual Studio build files
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.dbmdl
+*.log
+
+# Sensitive config
+appsettings.json
+appsettings.Development.json
+
+# Others
+*.cache
+*.config
+*.dll
+*.exe
+*.pdb
+*.tmp
+echo ".vs/
+bin/
+obj/
+*.user
+*.cache
+*.log
+*.pdb
+*.dll
+*.exe
+*.db
+*.json
+*.sqlite" > .gitignore

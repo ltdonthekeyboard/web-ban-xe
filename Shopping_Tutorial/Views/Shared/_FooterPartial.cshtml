@@ -1,0 +1,80 @@
+﻿<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <section style="height:80px;"></section>
+    <div class="row" style="text-align:center;">
+        <h2>CÔNG TY TNHH YAMAHA MOTOR VIỆT NAM</h2>
+    </div>
+    <!----------- Footer ------------>
+    <footer class="footer-bs">
+        <div class="row">
+            <div class="col-md-3 footer-brand animated fadeInLeft">
+                <h2><a asp-controller="Home"><img style="width:139px;height:39px" src="~/images/Remove-bg.ai_1731902855734.png" alt="" /></a></h2>
+                <p>
+                    Số GCNĐKDN: 0100774342<br />
+                    Cấp lần đầu: Ngày 22/09/2008<br />
+                    Đăng ký thay đổi lần thứ 10: Ngày 27/03/2020<br />
+                    Cơ quan cấp: Sở kế hoạch và đầu tư TP Hà Nội<br />
+                    Trụ sở chính: Thôn Bình An, Xã Trung Giã, Huyện Sóc Sơn, TP. Hà Nội<br />
+                </p>
+                <p><img decoding="async" width="120" height="49" src="https://yamaha-motor.com.vn/wp/wp-content/themes/yamaha/assets/img/share/logoSaleNoti.png" alt=""></p>
+            </div>
+            <div class="col-md-4 footer-nav animated fadeInUp">
+                <h4 style="padding-left: 20px">-Danh mục lựa chọn-</h4>
+                <div class="col-md-6">
+                    <ul class="pages">
+                        <li><a href="https://yamaheart.yamaha-motor.com.vn/login/">YAMAHEART</a></li>
+                        <li><a href="https://lms.yamaha-motor.com.vn/Login/">E-LEARNING</a></li>
+                        <li><a href="https://yamaha-motor.com.vn/uploadfile/">Tài liệu thiết kế</a></li>
+                        <li><a href="https://yamaha-motor.com.vn/hoi-dap/">Hỏi đáp</a></li>
+
+                    </ul>
+                </div>
+               
+            </div>
+            <div class="col-md-2 footer-social animated fadeInDown">
+                <h4>-Theo dõi chúng tôi-</h4>
+                <ul>
+                    <li><a href="https://web.facebook.com/congtyyamahavn">Facebook</a></li>
+                    <li><a href="https://x.com/yamaharacingcom">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/yamahamotorusa/">Instagram</a></li>
+                    <li><a href="https://yamaha-motor.com/">Google</a></li>
+                </ul>
+            </div>
+            
+    <div class="col-md-3 footer-ns animated fadeInRight">
+        <h4>Liên lạc</h4>
+        <p>Gửi cho tôi địa chỉ email của bạn để nhận những thông tin mới nhất từ chúng tôi</p>
+        <p>
+            <div class="input-group">
+                <input type="text" id="emailInput" class="form-control" placeholder="Nhập email">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="showThankYouMessage()">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </button>
+                </span>
+            </div><!-- /input-group -->
+        </p>
+        <p id="thankYouMessage" style="color: green; font-weight: bold; margin-top: 10px; display: none;"></p>
+    </div>
+
+    <script>
+        function showThankYouMessage() {
+            const emailInput = document.getElementById("emailInput").value.trim();
+
+            if (emailInput === "") {
+                alert("Vui lòng nhập địa chỉ email của bạn!");
+            } else {
+                const message = document.getElementById("thankYouMessage");
+                message.innerText = "Cảm ơn bạn đã đăng ký nhận thông tin!";
+                message.style.display = "block";
+            }
+        }
+    </script>
+
+        </div>
+    </footer>
+    

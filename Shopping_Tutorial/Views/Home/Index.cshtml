@@ -1,0 +1,225 @@
+﻿@model IEnumerable<ProductModel>
+@{
+    ViewData["Title"] = "Web bán hàng ASP.NET8";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<partial name="_SliderPartial"  />
+<div class="col-sm-3">
+	<partial name="_SidebarPartial" />
+</div>	
+
+	<style>
+		/* Kiểu dáng cho overlay (nền mờ) */
+		.overlay {
+			
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 9999;
+		}
+
+		/* Hộp thông báo */
+		.popup {
+			background-image: url('https://yamaha-motor.com.vn/wp/wp-content/uploads/2024/11/08771ad8129af51d033b5e2b2c96cd0c.jpg');
+			background-size: cover;
+			border-radius: 10px;
+			padding: 20px;
+			width: 600px;
+			height:290px;
+			text-align: center;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			position: relative;
+		}
+
+		/* Nút "X" để đóng */
+		.close-btn {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			background: red;
+			color: white;
+			border: none;
+			border-radius: 50%;
+			width: 25px;
+			height: 25px;
+			font-size: 18px;
+			cursor: pointer;
+			text-align: center;
+		}
+
+		/* Kiểu chữ và màu sắc */
+		.close-btn h2 {
+			
+		}
+
+		h2 p {
+			
+		}
+	</style>
+
+	<!-- Nền mờ và thông báo -->
+	<div class="overlay" id="popup">
+		<div class="popup">
+			<button class="close-btn" onclick="closePopup()">X</button>
+		<a style=" position: absolute;
+    bottom: 10px; /* Cách đáy 10px */
+    right: 10px; /* Cách phải 10px */
+    background-color: #ff4d4f; /* Màu nền nút */
+    color: white; /* Màu chữ ban đầu */
+    padding: 10px 20px; /* Khoảng cách bên trong */
+    font-size: 14px; /* Kích thước chữ ban đầu */
+    font-weight: bold; /* In đậm chữ */
+    text-decoration: none; /* Xóa gạch chân */
+    border-radius: 5px; /* Bo tròn góc nút */
+    transition: all 0.3s ease; /* Hiệu ứng hover */
+    animation: pulse 2s infinite; /* Kích hoạt hiệu ứng */" href="https://yamaha-motor.com.vn/khuyen-mai/chuong-trinh-khuyen-mai-loc-xuan-phoi-phoi-rinh-qua-nam-moi/">xem ngay</a>
+		</div>
+	</div>
+
+	<script>
+		// Hàm đóng thông báo
+		function closePopup() {
+			document.getElementById('popup').style.display = 'none';
+		}
+	</script>
+<div class="col-sm-9 padding-right">
+	<div class="features_items">
+		<!-- Hiển thị danh sách sản phẩm bán chạy -->
+		
+
+	</div>
+</div>
+<div class="col-sm-9 padding-right">
+	<div class="features_items">
+		@await Html.PartialAsync("~/Views/Product/_TopSellingProductsPartial.cshtml")
+		<!--features_items-->
+		<h2 class="title text-center">Danh sách sản phẩm</h2>
+
+		@foreach (var item in Model)
+		{
+
+			<div class="col-sm-4">
+				<div class="product-image-wrapper">
+					<div class="single-products">
+
+						
+						<div class="productinfo text-center">
+							<a asp-action="Detail" asp-controller="Product" asp-route-Id="@item.Id">
+							<img src="~/media/products/@item.Image" alt="@item.Name" width="100px" height="200px" />
+								<h2>@item.Price.ToString("#,##0 VNĐ")</h2>
+							<p>@item.Name</p>
+							<p>Danh mục: @item.Category.Name</p>
+							<p>Thương hiệu: @item.Brand.Name</p>
+							
+							</a>
+							@if(item.Quantity>0){
+								<button class="btn btn-default add-to-cart" data-product_id="@item.Id"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</button>
+							}
+							else
+							{
+								<button class="btn btn-default"><i class="fa fa-shopping-cart"></i>Hết hàng</button>
+							}
+						</div>
+						
+
+					</div>
+					<div class="choose">
+						@if (User.Identity?.IsAuthenticated ?? false)
+						{
+							<ul class="nav nav-pills nav-justified">
+								<li><button class="btn btn-danger add-btn-wishlist" data-product_id="@item.Id">Yêu thích</button></li>
+								<li><button style="margin-left: 74px" class="btn btn-success add-btn-compare" data-product_id="@item.Id">So sánh</button></li>
+							</ul>		
+						}
+					</div>
+				</div>
+			</div>
+		}
+
+	</div><!--features_items-->
+</div>
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$('.add-to-cart').click(function () {
+				var Id = $(this).data("product_id");
+
+				//alert(product_id);
+
+				$.ajax({
+					type: "POST",
+					url: "@Url.Action("Add","Cart")",
+					data: { Id: Id }, // Send data to the server
+
+					success: function (result) {
+						// Handle successful update
+						if (result) {
+
+							Swal.fire("Thêm giỏ hàng thành công.");
+						} 
+					}
+
+				});
+			});
+		});
+	</script>
+	<!---Add to Wishlish Script--->
+	<script>
+		$(document).ready(function () {
+			$('.add-btn-wishlist').click(function () {
+				var Id = $(this).data("product_id");
+
+				//alert(product_id);
+
+				$.ajax({
+					type: "POST",
+					url: "@Url.Action("AddWishlist", "Home")",
+					data: { Id: Id }, // Send data to the server
+
+					success: function (result) {
+						// Handle successful update
+						if (result) {
+
+							Swal.fire("Thêm yêu thích sản phẩm thành công.");
+						}
+					}
+
+				});
+			});
+		});
+	</script>
+	<!---//Add to Wishlish Script--->
+	<!---Add to Wishlish Script--->
+	<script>
+		$(document).ready(function () {
+			$('.add-btn-compare').click(function () {
+				var Id = $(this).data("product_id");
+
+				//alert(product_id);
+
+				$.ajax({
+					type: "POST",
+					url: "@Url.Action("AddCompare", "Home")",
+					data: { Id: Id }, // Send data to the server
+
+					success: function (result) {
+						// Handle successful update
+						if (result) {
+
+							Swal.fire("Thêm so sánh thành công.");
+						}
+					}
+
+				});
+			});
+		});
+	</script>
+	<!---//Add to Wishlish Script--->
+}
+
